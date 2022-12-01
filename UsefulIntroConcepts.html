@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Some useful introductory concepts in R</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="ramsdeda@carpha.org" />
+    <script src="libs/header-attrs-2.18/header-attrs.js"></script>
+    <link href="libs/remark-css-0.0.1/default.css" rel="stylesheet" />
+    <link href="libs/remark-css-0.0.1/default-fonts.css" rel="stylesheet" />
+    <link href="libs/tile-view-0.2.6/tile-view.css" rel="stylesheet" />
+    <script src="libs/tile-view-0.2.6/tile-view.js"></script>
+    <script src="libs/xaringanExtra-webcam-0.0.1/webcam.js"></script>
+    <script id="xaringanExtra-webcam-options" type="application/json">{"width":"200","height":"200","margin":"1em"}</script>
+    <link href="libs/xaringanExtra-extra-styles-0.2.6/xaringanExtra-extra-styles.css" rel="stylesheet" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+.title[
+# Some useful introductory concepts in R
+]
+.subtitle[
+## Daryn Ramsden
+]
+.author[
+### <a href="mailto:ramsdeda@carpha.org" class="email">ramsdeda@carpha.org</a>
+]
+.date[
+### last updated: 2022-12-01
+]
+
+---
+
+
+
+
+
+# What is an R package?
+
+A package is a collection of code meant for distribution.
+
+--
+  * R itself is organised into packages
+
+
+
+--
+  * the term is commonly used to refer to add-on packages 
+
+
+
+--
+  * packages can contain code, documentation, tests and data
+
+
+
+--
+  * the most common means to acquire a package is via CRAN where packages have to meet certain conditions to be accepted for submission
+
+---
+# CRAN: Comprehensive R Archive Network
+
+As of November 30th 2022, CRAN lists **18,913** packages available for installation:
+&lt;img src="CRAN_screen.png" width="2028" /&gt;
+
+---
+
+# Installing packages from CRAN
+
+You can install packages from CRAN, using the `install.packages` function:
+
+--
+
+
+```r
+install.packages("sf")
+```
+
+--
+
+Multiple packages can be installed using the `c` function:
+
+--
+
+
+```r
+install.packages(c("sf", "terra"))
+```
+
+--
+
+A couple notes:
+
+--
+
+  1. when using `install.packages()` the package name has to given as a text string, i.e. has to be in quotes
+
+--
+
+  2. You should not have to install a specific package very frequently. If you have a call to `install.packages()` in your code, that's probably unnecessary
+  
+
+
+---
+
+## Updating packages
+
+You can update a package in a few different ways:
+
+  * using `install.packages()` again
+  
+  * using `update.packages()` (useful if you want to update all your outdated packages. Otherwise, it's basically the same as `install.packages()` AFAICT.)
+  
+  * Using the *Packages* tab in RStudio
+
+
+
+
+---
+
+## Using RStudio to update packages
+
+
+
+&lt;img src="RStudioUpdate.png" width="637" /&gt;
+
+---
+
+## Brief digression: RTools
+
+You may have come across a warning/error/message referring to *RTools*
+
+--
+
+What is it?
+
+--
+
+
+RTools is an ancillary software application that is sometimes required to install packages on Windows.
+
+--
+
+Go ahead and install it. 
+
+You can find it at: https://cran.r-project.org/bin/windows/Rtools/
+
+
+---
+
+## Input and output: Some useful packages for reading data
+
+
+
+  1. Reading text formats
+    
+    * base R functions: `read.csv()`, `read.table()`, ...
+
+    * `readr` package (part of `tidyverse`). 
+--
+  2. Reading spreadsheets
+    
+    * `readxl` package: `read_xls()` and `read_xlsx()`
+
+--
+  3. Data from SAS, SPSS, Stata etc 
+  
+    * `haven` package: `read_sav()`, `read_dta()`, `read_xpt()`, `read_sav()`, `read_spss()`, ...
+  
+--
+
+  4. Geospatial vector data
+  
+    * `sf` package: `read_sf()`
+    
+    
+--
+
+Most `read` functions have a matching `write` function. I'll leave that to you to look into.   
+  
+---
+
+## Importing data from the web
+
+
+The aforementioned functions should generally also work for data located on the internet. For example: 
+
+
+
+```r
+who &lt;- read.csv("https://covid19.who.int/WHO-COVID-19-global-data.csv")
+```
+
+
+
+
+
+---
+
+## Using RStudio to import data
+
+&lt;img src="RStudioImport0.png" width="1040" height="200" /&gt;
+
+&lt;img src="RStudioImport.png" width="2184" height="250" /&gt;
+
+---
+
+## Some other useful functions for working with data
+
+  * `tidyr` package:
+    * `pivot_wider()` and `pivot_longer()` for reshaping data
+    
+    *  `separate()` and 
+  
+  * `dplyr` package:
+  
+    * `left_join()`, `inner_join()`, `full_join()`, `anti_join()`: for joining data sets. These concepts may be familiar to those who have experience using SQL. 
+  
+  * `lubridate` package:
+  
+    * various functions for working with dates
+
+  * `janitor` package:
+    * Simple Tools for Examining and Cleaning Dirty Data
+    
+  * `data.table` package: 
+    * functions for fast aggregation of large data
+
+---
+
+## Getting help in R 
+
+You can access the help file for any function using the `?` 
+
+If the package is loaded, use the `?` with the function name:
+--
+
+```r
+?pivot_wider
+```
+--
+
+Or, if the package is not loaded, include the package name:
+--
+
+```r
+?tidyr::pivot_wider
+```
+
+
+
+
+
+
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+// add `data-at-shortcutkeys` attribute to <body> to resolve conflicts with JAWS
+// screen reader (see PR #262)
+(function(d) {
+  let res = {};
+  d.querySelectorAll('.remark-help-content table tr').forEach(tr => {
+    const t = tr.querySelector('td:nth-child(2)').innerText;
+    tr.querySelectorAll('td:first-child .key').forEach(key => {
+      const k = key.innerText;
+      if (/^[a-z]$/.test(k)) res[k] = t;  // must be a single letter (key)
+    });
+  });
+  d.body.setAttribute('data-at-shortcutkeys', JSON.stringify(res));
+})(document);
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
